@@ -32,23 +32,23 @@ export function AddProjectModal({ onAdd, onClose }: AddProjectModalProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
       <div
-        className="absolute inset-0 bg-black/70 backdrop-blur-md"
+        className="absolute inset-0 bg-[#4a3927]/45"
         onClick={onClose}
         onKeyDown={e => e.key === 'Escape' && onClose()}
       />
       <form
         onSubmit={handleSubmit}
-        className="relative w-full max-w-3xl space-y-7 rounded-3xl border border-border/75 bg-gradient-to-b from-bg-secondary to-bg-primary p-6 shadow-[0_28px_90px_rgba(2,6,15,0.8)] sm:p-9"
+        className="retro-panel relative w-full max-w-3xl space-y-7 p-6 sm:p-9"
       >
         <div className="mb-2 flex items-center justify-between">
-          <h2 className="font-mono text-2xl font-semibold tracking-tight text-text-primary">
-            <span className="mr-2 text-accent-green">$</span>
+          <h2 className="font-display text-xl font-semibold uppercase text-text-primary sm:text-2xl">
+            <span className="mr-2 text-accent-lavender">$</span>
             new project
           </h2>
           <button
             type="button"
             onClick={onClose}
-            className="rounded-lg border border-border/70 bg-bg-primary/60 p-2 text-text-muted transition-colors hover:text-text-primary"
+            className="retro-button p-2 text-text-muted transition-colors hover:text-accent-lavender"
           >
             <X className="w-4 h-4" />
           </button>
@@ -62,8 +62,8 @@ export function AddProjectModal({ onAdd, onClose }: AddProjectModalProps) {
             onChange={e => setTitle(e.target.value)}
             placeholder="my-awesome-project"
             autoFocus
-            className="w-full rounded-xl border border-border/80 bg-bg-primary/65 px-4 py-3.5 text-base text-text-primary
-              placeholder:text-text-muted transition-all focus:border-border-hover focus:outline-none focus:ring-2 focus:ring-accent-link/20"
+            className="retro-inset w-full px-4 py-3.5 text-base text-text-primary
+              placeholder:text-text-muted transition-all focus:border-border-hover focus:outline-none"
           />
         </div>
 
@@ -74,8 +74,8 @@ export function AddProjectModal({ onAdd, onClose }: AddProjectModalProps) {
             onChange={e => setDescription(e.target.value)}
             placeholder="What is this project about?"
             rows={4}
-            className="w-full resize-none rounded-xl border border-border/80 bg-bg-primary/65 px-4 py-3.5 text-base text-text-primary
-              placeholder:text-text-muted transition-all focus:border-border-hover focus:outline-none focus:ring-2 focus:ring-accent-link/20"
+            className="retro-inset w-full resize-none px-4 py-3.5 text-base text-text-primary
+              placeholder:text-text-muted transition-all focus:border-border-hover focus:outline-none"
           />
         </div>
 
@@ -87,15 +87,15 @@ export function AddProjectModal({ onAdd, onClose }: AddProjectModalProps) {
                 key={s}
                 type="button"
                 onClick={() => setStatus(s)}
-                className={`flex items-center gap-2 rounded-xl border px-5 py-2.5 text-sm font-semibold capitalize transition-all ${
+                className={`flex items-center gap-2 rounded-md border-2 px-5 py-2.5 text-sm font-semibold uppercase transition-all ${
                   status === s
                     ? s === 'started'
-                      ? 'border-accent-green/40 bg-accent-green/12 text-accent-green'
-                      : 'border-accent-amber/40 bg-accent-amber/12 text-accent-amber'
-                    : 'border-border/80 bg-bg-primary/65 text-text-muted hover:text-text-primary'
+                      ? 'border-border bg-accent-green/20 text-accent-green shadow-[2px_2px_0_rgba(75,57,40,0.85)]'
+                      : 'border-border bg-accent-amber/20 text-accent-amber shadow-[2px_2px_0_rgba(75,57,40,0.85)]'
+                    : 'border-border bg-bg-secondary/80 text-text-muted hover:border-border-hover hover:text-text-primary'
                 }`}
               >
-                <span className={`h-2 w-2 rounded-full ${status === s
+                <span className={`h-2.5 w-2.5 rounded-sm ${status === s
                   ? s === 'started'
                     ? 'bg-accent-green'
                     : 'bg-accent-amber'
@@ -114,8 +114,8 @@ export function AddProjectModal({ onAdd, onClose }: AddProjectModalProps) {
             value={repoUrl}
             onChange={e => setRepoUrl(e.target.value)}
             placeholder="https://github.com/..."
-            className="w-full rounded-xl border border-border/80 bg-bg-primary/65 px-4 py-3.5 text-base text-text-primary
-              placeholder:text-text-muted transition-all focus:border-border-hover focus:outline-none focus:ring-2 focus:ring-accent-link/20"
+            className="retro-inset w-full px-4 py-3.5 text-base text-text-primary
+              placeholder:text-text-muted transition-all focus:border-border-hover focus:outline-none"
           />
         </div>
 
@@ -123,8 +123,8 @@ export function AddProjectModal({ onAdd, onClose }: AddProjectModalProps) {
           <button
             type="submit"
             disabled={!title.trim()}
-            className="w-full rounded-xl bg-gradient-to-r from-accent-emerald to-accent-link py-3.5 text-base font-semibold text-bg-primary
-              transition-all hover:brightness-105 hover:shadow-[0_10px_28px_rgba(89,243,188,0.35)] disabled:cursor-not-allowed disabled:opacity-40"
+            className="retro-button retro-button-primary w-full py-3.5 text-base font-semibold uppercase
+              transition-all disabled:cursor-not-allowed disabled:opacity-40"
           >
             create project
           </button>

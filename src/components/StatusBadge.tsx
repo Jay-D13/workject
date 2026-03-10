@@ -14,19 +14,19 @@ export function StatusBadge({ status, onClick, className }: StatusBadgeProps) {
       onClick={onClick}
       disabled={!onClick}
       className={cn(
-        'inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] transition-all',
+        'font-display inline-flex items-center gap-2 rounded-md border-2 px-3 py-1.5 text-[10px] font-semibold uppercase transition-all',
         status === 'started'
-          ? 'border-accent-green/30 bg-accent-green/10 text-accent-green'
-          : 'border-accent-amber/30 bg-accent-amber/10 text-accent-amber',
+          ? 'border-border bg-accent-green/20 text-accent-green'
+          : 'border-border bg-accent-amber/22 text-accent-amber',
         onClick
-          ? 'cursor-pointer hover:brightness-110'
+          ? 'cursor-pointer hover:border-border-hover'
           : 'cursor-default',
         className,
       )}
     >
       <span
         className={cn(
-          'h-1.5 w-1.5 rounded-full',
+          'h-2 w-2 rounded-sm',
           status === 'started' ? 'bg-accent-green' : 'bg-accent-amber',
         )}
       />

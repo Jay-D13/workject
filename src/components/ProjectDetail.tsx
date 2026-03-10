@@ -54,18 +54,18 @@ export function ProjectDetail({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.24, ease: 'easeOut' }}
     >
-      <div className="mx-auto w-full max-w-6xl rounded-3xl border border-border/70 bg-gradient-to-b from-bg-secondary/85 to-bg-primary/85 p-5 shadow-[0_22px_72px_rgba(4,9,20,0.65)] sm:p-8 lg:p-10">
+      <div className="retro-panel mx-auto w-full max-w-6xl p-5 sm:p-8 lg:p-10">
         <div className="mb-7 flex items-start gap-3 sm:gap-4">
           <button
             type="button"
             onClick={onBack}
-            className="mt-1 rounded-xl border border-border/80 bg-bg-primary/65 p-2.5 text-text-muted transition-all hover:border-border-hover hover:text-text-primary"
+            className="retro-button mt-1 p-2.5 text-text-muted transition-all hover:border-border-hover hover:text-text-primary"
           >
             <ArrowLeft className="h-5 w-5 sm:h-6 sm:w-6" />
           </button>
 
           <div className="min-w-0 flex-1 space-y-2">
-            <h2 className="truncate font-mono text-3xl font-semibold tracking-tight text-text-primary sm:text-4xl">
+            <h2 className="truncate font-display text-2xl font-semibold text-text-primary sm:text-3xl lg:text-4xl">
               {project.title}
             </h2>
             <p className="text-sm text-text-muted sm:text-base">
@@ -78,13 +78,13 @@ export function ProjectDetail({
 
         <ProgressBar completed={completed} total={total} className="mb-8" />
 
-        <div className="mb-8 flex flex-wrap items-center gap-3 rounded-2xl border border-border/70 bg-bg-primary/55 p-3 sm:p-4">
+        <div className="retro-inset mb-8 flex flex-wrap items-center gap-3 bg-[linear-gradient(180deg,rgba(159,199,217,0.12),rgba(249,240,210,0.95))] p-3 sm:p-4">
           {project.repoUrl && (
             <a
               href={project.repoUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg border border-accent-link/35 bg-accent-link/10 px-3 py-2 text-sm font-medium text-accent-link transition-colors hover:border-accent-link/60"
+              className="retro-button inline-flex items-center gap-2 bg-[linear-gradient(180deg,rgba(159,199,217,0.26),rgba(232,214,171,1))] px-3 py-2 text-sm font-medium text-accent-link transition-colors hover:border-border-hover"
             >
               <ExternalLink className="h-4 w-4" />
               Open repository
@@ -97,7 +97,7 @@ export function ProjectDetail({
           <button
             type="button"
             onClick={() => setConfirmAction('archive')}
-            className="inline-flex items-center gap-2 rounded-lg border border-border/80 bg-bg-primary/65 px-3 py-2 text-sm text-text-secondary transition-colors hover:border-accent-amber/50 hover:text-accent-amber"
+            className="retro-button inline-flex items-center gap-2 px-3 py-2 text-sm text-text-secondary transition-colors hover:border-border-hover hover:text-accent-amber"
           >
             {project.archived ? (
               <><ArchiveRestore className="h-4 w-4" /> unarchive</>
@@ -108,7 +108,7 @@ export function ProjectDetail({
           <button
             type="button"
             onClick={() => setConfirmAction('delete')}
-            className="inline-flex items-center gap-2 rounded-lg border border-border/80 bg-bg-primary/65 px-3 py-2 text-sm text-text-secondary transition-colors hover:border-accent-red/50 hover:text-accent-red"
+            className="retro-button inline-flex items-center gap-2 px-3 py-2 text-sm text-text-secondary transition-colors hover:border-border-hover hover:text-accent-red"
           >
             <Trash2 className="h-4 w-4" />
             delete
@@ -116,17 +116,21 @@ export function ProjectDetail({
         </div>
 
         <div className="mb-7 overflow-x-auto">
-          <div className="inline-flex min-w-full gap-2 rounded-2xl border border-border/70 bg-bg-primary/55 p-1.5">
+          <div className="retro-inset inline-flex min-w-full gap-2 p-1.5">
             {tabs.map(tab => (
               <button
                 key={tab.key}
                 type="button"
                 onClick={() => setActiveTab(tab.key)}
                 className={cn(
-                  'rounded-xl px-4 py-2.5 text-sm font-semibold transition-all sm:px-6',
+                  'rounded-md border-2 px-4 py-2.5 text-sm font-semibold transition-all sm:px-6',
                   activeTab === tab.key
-                    ? 'bg-bg-tertiary text-text-primary shadow-sm'
-                    : 'text-text-muted hover:text-text-secondary',
+                    ? tab.key === 'description'
+                      ? 'border-border bg-[rgba(159,199,217,0.45)] text-text-primary shadow-[2px_2px_0_rgba(75,57,40,0.85)]'
+                      : tab.key === 'plan'
+                        ? 'border-border bg-[rgba(184,167,219,0.4)] text-text-primary shadow-[2px_2px_0_rgba(75,57,40,0.85)]'
+                        : 'border-border bg-[rgba(231,166,161,0.34)] text-text-primary shadow-[2px_2px_0_rgba(75,57,40,0.85)]'
+                    : 'border-transparent text-text-muted hover:text-text-secondary',
                 )}
               >
                 {tab.label}

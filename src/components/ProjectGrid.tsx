@@ -76,21 +76,20 @@ export function ProjectGrid({
   return (
     <>
       <div className="space-y-8">
-        <section className="relative mx-auto w-full max-w-[1120px] overflow-hidden rounded-3xl border border-border/55 bg-bg-secondary/58 p-4 shadow-[0_16px_42px_rgba(4,9,20,0.45)] backdrop-blur-sm sm:p-5">
-          <div className="pointer-events-none absolute -top-20 right-[-80px] h-36 w-36 rounded-full bg-accent-link/14 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-20 left-[-80px] h-40 w-40 rounded-full bg-accent-green/12 blur-3xl" />
+        <section className="retro-panel relative mx-auto w-full max-w-[1120px] overflow-hidden p-4 sm:p-5">
+          <div className="absolute inset-x-4 top-4 h-2 rounded-full bg-[repeating-linear-gradient(90deg,rgba(159,199,217,0.65)_0_12px,rgba(184,167,219,0.65)_12px_24px,rgba(231,166,161,0.6)_24px_36px,transparent_36px_46px)] opacity-80" />
 
-          <div className="relative space-y-5">
+          <div className="relative space-y-5 pt-4">
             <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
               <div className="space-y-2">
-                <h2 className="font-mono text-[1.95rem] font-semibold tracking-tight text-text-primary">
+                <h2 className="font-display text-2xl font-semibold uppercase text-text-primary sm:text-3xl">
                   Project Workspace
                 </h2>
                 <p className="max-w-2xl text-sm leading-relaxed text-text-secondary sm:text-base">
                   Track active work, jump into details, and keep momentum without crowding the interface.
                 </p>
               </div>
-              <div className="inline-flex w-fit items-center rounded-full border border-border/60 bg-bg-primary/52 px-4 py-1.5 text-sm font-medium text-text-secondary">
+              <div className="retro-inset inline-flex w-fit items-center bg-[linear-gradient(180deg,rgba(159,199,217,0.18),rgba(249,240,210,0.95))] px-4 py-2 text-sm font-medium uppercase text-text-secondary">
                 {sorted.length} visible
               </div>
             </div>
@@ -103,20 +102,20 @@ export function ProjectGrid({
                   placeholder="Search by project title or description..."
                   value={searchQuery}
                   onChange={(e) => onSearchChange?.(e.target.value)}
-                  className="w-full rounded-xl border border-border/70 bg-bg-primary/58 py-2.5 pl-11 pr-4 text-sm text-text-primary placeholder:text-text-muted transition-all focus:border-border-hover focus:ring-2 focus:ring-accent-link/20 focus:outline-none"
+                  className="retro-inset w-full py-2.5 pl-11 pr-4 text-sm text-text-primary placeholder:text-text-muted transition-all focus:border-border-hover focus:outline-none"
                 />
               </div>
 
               {onViewModeChange && (
-                <div className="flex items-center rounded-xl border border-border/65 bg-bg-primary/58 p-1">
+                <div className="retro-inset bg-[linear-gradient(180deg,rgba(184,167,219,0.12),rgba(249,240,210,0.95))] flex items-center gap-1 p-1.5">
                   <button
                     type="button"
                     onClick={() => onViewModeChange('grid')}
                     className={cn(
-                      'rounded-lg px-3 py-2 transition-all',
+                      'rounded-md border-2 px-3 py-2 transition-all',
                       viewMode === 'grid'
-                        ? 'bg-bg-tertiary/70 text-text-primary shadow-sm'
-                        : 'text-text-muted hover:text-text-secondary',
+                        ? 'border-border bg-[rgba(159,199,217,0.45)] text-text-primary shadow-[2px_2px_0_rgba(75,57,40,0.85)]'
+                        : 'border-transparent text-text-muted hover:text-text-secondary',
                     )}
                     title="Grid view"
                   >
@@ -126,10 +125,10 @@ export function ProjectGrid({
                     type="button"
                     onClick={() => onViewModeChange('list')}
                     className={cn(
-                      'rounded-lg px-3 py-2 transition-all',
+                      'rounded-md border-2 px-3 py-2 transition-all',
                       viewMode === 'list'
-                        ? 'bg-bg-tertiary/70 text-text-primary shadow-sm'
-                        : 'text-text-muted hover:text-text-secondary',
+                        ? 'border-border bg-[rgba(184,167,219,0.38)] text-text-primary shadow-[2px_2px_0_rgba(75,57,40,0.85)]'
+                        : 'border-transparent text-text-muted hover:text-text-secondary',
                     )}
                     title="List view"
                   >
@@ -147,10 +146,14 @@ export function ProjectGrid({
                     type="button"
                     onClick={() => onStatusFilterChange(filter)}
                     className={cn(
-                      'rounded-full border px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] transition-all',
+                      'rounded-md border-2 px-3.5 py-2 text-[11px] font-semibold uppercase transition-all',
                       statusFilter === filter
-                        ? 'border-accent-link/55 bg-accent-link/14 text-text-primary'
-                        : 'border-border/65 bg-bg-primary/52 text-text-secondary hover:text-text-primary',
+                        ? filter === 'all'
+                          ? 'border-border bg-[rgba(159,199,217,0.45)] text-text-primary shadow-[2px_2px_0_rgba(75,57,40,0.85)]'
+                          : filter === 'started'
+                            ? 'border-border bg-accent-green/20 text-accent-green shadow-[2px_2px_0_rgba(75,57,40,0.85)]'
+                            : 'border-border bg-accent-amber/20 text-accent-amber shadow-[2px_2px_0_rgba(75,57,40,0.85)]'
+                        : 'bg-bg-secondary/80 text-text-secondary hover:border-border-hover hover:text-text-primary',
                     )}
                   >
                     {filter}
@@ -160,7 +163,7 @@ export function ProjectGrid({
                   <button
                     type="button"
                     onClick={onToggleArchived}
-                    className="rounded-full border border-border/65 bg-bg-primary/52 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-text-secondary transition-colors hover:text-text-primary"
+                    className="rounded-md border-2 border-border bg-bg-secondary/80 px-3.5 py-2 text-[11px] font-semibold uppercase text-text-secondary transition-colors hover:border-border-hover hover:text-text-primary"
                   >
                     {showArchived ? 'Hide archived' : `Show archived (${archived})`}
                   </button>
@@ -169,11 +172,11 @@ export function ProjectGrid({
 
               <label className="flex items-center gap-2 text-xs text-text-secondary">
                 <ArrowUpDown className="h-3.5 w-3.5" />
-                <span className="font-semibold uppercase tracking-[0.12em]">Sort</span>
+                <span className="font-display text-[10px] font-semibold uppercase">Sort</span>
                 <select
                   value={sortBy}
                   onChange={e => onSortByChange(e.target.value as ProjectSortOption)}
-                  className="rounded-lg border border-border/65 bg-bg-primary/58 px-3 py-1.5 text-xs font-medium text-text-primary focus:border-border-hover focus:outline-none"
+                  className="retro-inset appearance-none bg-[linear-gradient(180deg,rgba(159,199,217,0.14),rgba(249,240,210,0.95))] px-3 py-2 text-xs font-medium text-text-primary focus:border-border-hover focus:outline-none"
                 >
                   <option value="updated-desc">Recently updated</option>
                   <option value="updated-asc">Oldest updated</option>
@@ -223,7 +226,7 @@ export function ProjectGrid({
         onClick={onAddProject}
         whileHover={{ scale: 1.05, y: -2 }}
         whileTap={{ scale: 0.95 }}
-        className="fixed bottom-8 right-6 z-50 flex h-16 w-16 items-center justify-center rounded-2xl border border-accent-green/40 bg-gradient-to-br from-accent-green to-accent-link text-3xl font-light text-bg-primary shadow-[0_16px_40px_rgba(75,211,190,0.35)] transition-all hover:shadow-[0_20px_46px_rgba(75,211,190,0.5)] sm:bottom-10 sm:right-10"
+        className="retro-button retro-button-primary font-display fixed bottom-8 right-6 z-50 flex h-16 w-16 items-center justify-center rounded-xl border-border text-3xl text-bg-elevated transition-all sm:bottom-10 sm:right-10"
       >
         +
       </motion.button>

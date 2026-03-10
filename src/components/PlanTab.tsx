@@ -30,17 +30,17 @@ export function PlanTab({ plan, onSave }: PlanTabProps) {
   }
 
   return (
-    <div className="space-y-4 rounded-2xl border border-border/70 bg-bg-secondary/60 p-3 sm:p-4">
+    <div className="retro-screen space-y-4 p-3 sm:p-4">
       <div className="flex items-center justify-end">
-        <div className="flex items-center rounded-xl border border-border/80 bg-bg-primary/65 p-1">
+        <div className="retro-inset flex items-center gap-1 p-1">
           <button
             type="button"
             onClick={() => { if (!editing) return; handleToggle() }}
             className={cn(
-              'rounded-lg px-3 py-1.5 text-xs font-semibold transition-all',
+              'rounded-md border-2 px-3 py-1.5 text-xs font-semibold uppercase transition-all',
               !editing
-                ? 'bg-bg-tertiary text-text-primary shadow-sm'
-                : 'text-text-muted hover:text-text-secondary',
+                ? 'border-border bg-bg-tertiary text-text-primary shadow-[2px_2px_0_rgba(75,57,40,0.85)]'
+                : 'border-transparent text-text-muted hover:text-text-secondary',
             )}
           >
             preview
@@ -49,10 +49,10 @@ export function PlanTab({ plan, onSave }: PlanTabProps) {
             type="button"
             onClick={() => { if (editing) return; handleToggle() }}
             className={cn(
-              'rounded-lg px-3 py-1.5 text-xs font-semibold transition-all',
+              'rounded-md border-2 px-3 py-1.5 text-xs font-semibold uppercase transition-all',
               editing
-                ? 'bg-bg-tertiary text-text-primary shadow-sm'
-                : 'text-text-muted hover:text-text-secondary',
+                ? 'border-border bg-bg-tertiary text-text-primary shadow-[2px_2px_0_rgba(75,57,40,0.85)]'
+                : 'border-transparent text-text-muted hover:text-text-secondary',
             )}
           >
             edit
@@ -66,13 +66,13 @@ export function PlanTab({ plan, onSave }: PlanTabProps) {
           onChange={e => setValue(e.target.value)}
           onBlur={handleBlur}
           placeholder="Paste your LLM plan in markdown..."
-          className="h-96 w-full resize-y rounded-xl border border-border/80 bg-bg-primary/65 px-4 py-4 text-base leading-relaxed text-text-primary
-            placeholder:text-text-muted transition-all focus:border-border-hover focus:outline-none focus:ring-2 focus:ring-accent-link/20"
+          className="retro-inset h-96 w-full resize-y px-4 py-4 text-base leading-relaxed text-text-primary
+            placeholder:text-text-muted transition-all focus:border-border-hover focus:outline-none"
         />
       ) : (
         <div
           className={cn(
-            'min-h-[24rem] rounded-xl border border-border/75 bg-bg-primary/65 px-5 py-5 sm:px-6',
+            'retro-screen min-h-[24rem] px-5 py-5 sm:px-6',
             'prose prose-sm max-w-none',
           )}
         >
