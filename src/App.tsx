@@ -61,6 +61,7 @@ function App() {
       coldStorageStatus={coldStorageStatus}
       coldStorageBusy={isColdStorageBusy}
       onConnectColdStorage={connectColdStorage}
+      onNavigateHome={() => setView({ type: 'grid' })}
     >
       {!isReady ? (
         <div className="retro-panel mx-auto max-w-3xl px-6 py-16 text-center">

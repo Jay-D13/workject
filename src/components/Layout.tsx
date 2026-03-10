@@ -13,6 +13,7 @@ interface LayoutProps {
   coldStorageStatus: ColdStorageStatus
   coldStorageBusy: boolean
   onConnectColdStorage: () => void
+  onNavigateHome: () => void
 }
 
 export function Layout({
@@ -22,6 +23,7 @@ export function Layout({
   coldStorageStatus,
   coldStorageBusy,
   onConnectColdStorage,
+  onNavigateHome,
 }: LayoutProps) {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const active = projects.filter(p => !p.archived)
@@ -72,7 +74,12 @@ export function Layout({
     <div className="min-h-screen">
       <header className="sticky top-0 z-40 border-b-[3px] border-border bg-bg-secondary/90">
         <div className="mx-auto flex min-h-20 w-full max-w-[1520px] flex-wrap items-center justify-between gap-4 px-4 py-3 sm:px-8 lg:px-12">
-          <div className="flex items-center gap-3 sm:gap-4">
+          <button
+            type="button"
+            onClick={onNavigateHome}
+            className="flex items-center gap-3 text-left sm:gap-4"
+            title="Go to main page"
+          >
             <span className="retro-panel inline-flex h-10 w-10 items-center justify-center rounded-lg text-sm font-semibold text-accent-green shadow-none">
               $
             </span>
@@ -84,7 +91,7 @@ export function Layout({
                 Project cockpit
               </p>
             </div>
-          </div>
+          </button>
 
           <div className="flex flex-1 flex-wrap items-center justify-end gap-3 sm:gap-5">
             {active.length > 0 && (
