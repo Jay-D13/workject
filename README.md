@@ -4,6 +4,8 @@
 
 Built with Vite, React, and TypeScript, the app runs entirely in the browser and stores your data on your machine. You can use it as a simple browser-only project organizer, or connect a folder for optional filesystem-backed cold storage.
 
+<img width="1512" height="861" alt="image" src="https://github.com/user-attachments/assets/5c72b929-7f20-4d87-a941-4369b607908c" />
+
 ## What `workject` is for
 
 `workject` is meant to be a low-friction place to capture and maintain:
