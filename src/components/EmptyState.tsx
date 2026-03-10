@@ -8,7 +8,7 @@ export function EmptyState() {
           </p>
           <p className="font-display text-xs uppercase text-text-muted">(empty)</p>
           <p className="mt-5">
-            <span className="text-accent-green">$</span> projstral --new
+            <span className="text-accent-green">$</span> workject --new
             <span className="cursor-blink text-text-secondary ml-0.5">_</span>
           </p>
         </div>

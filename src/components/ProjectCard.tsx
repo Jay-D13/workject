@@ -26,7 +26,7 @@ export function ProjectCard({ project, onClick, mode = 'grid' }: ProjectCardProp
       )}
     >
       <div className="mb-4 flex items-start justify-between gap-4">
-        <h3 className="font-display text-lg font-semibold leading-tight text-text-primary line-clamp-2 sm:text-xl">
+        <h3 className="font-project-title text-lg leading-tight text-text-primary line-clamp-2 sm:text-xl">
           {project.title}
         </h3>
         <StatusBadge status={project.status} />

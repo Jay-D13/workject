@@ -1,4 +1,4 @@
-export type ProjectStatus = 'started' | 'pending'
+export type ProjectStatus = 'not-started' | 'in-progress' | 'finished'
 export type ProjectSortOption =
   | 'updated-desc'
   | 'updated-asc'

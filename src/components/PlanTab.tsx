@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
-import Markdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
 import { cn } from '../lib/cn'
+import { MarkdownContent } from './MarkdownContent'
 
 interface PlanTabProps {
   plan: string
@@ -77,7 +76,7 @@ export function PlanTab({ plan, onSave }: PlanTabProps) {
           )}
         >
           {value ? (
-            <Markdown remarkPlugins={[remarkGfm]}>{value}</Markdown>
+            <MarkdownContent value={value} />
           ) : (
             <p className="text-text-muted text-sm">No plan yet. Switch to edit to add one.</p>
           )}

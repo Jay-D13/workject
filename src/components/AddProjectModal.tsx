@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { X } from 'lucide-react'
+import { getProjectStatusLabel, PROJECT_STATUSES } from '../lib/projectStatus'
 import type { ProjectStatus } from '../types'
 
 interface AddProjectModalProps {
@@ -15,7 +16,7 @@ interface AddProjectModalProps {
 export function AddProjectModal({ onAdd, onClose }: AddProjectModalProps) {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-  const [status, setStatus] = useState<ProjectStatus>('pending')
+  const [status, setStatus] = useState<ProjectStatus>('not-started')
   const [repoUrl, setRepoUrl] = useState('')
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -81,30 +82,17 @@ export function AddProjectModal({ onAdd, onClose }: AddProjectModalProps) {
 
         <div className="space-y-3">
           <label className="block text-xs font-semibold uppercase tracking-[0.12em] text-text-secondary">Status</label>
-          <div className="flex gap-3">
-            {(['pending', 'started'] as const).map(s => (
-              <button
-                key={s}
-                type="button"
-                onClick={() => setStatus(s)}
-                className={`flex items-center gap-2 rounded-md border-2 px-5 py-2.5 text-sm font-semibold uppercase transition-all ${
-                  status === s
-                    ? s === 'started'
-                      ? 'border-border bg-accent-green/20 text-accent-green shadow-[2px_2px_0_rgba(75,57,40,0.85)]'
-                      : 'border-border bg-accent-amber/20 text-accent-amber shadow-[2px_2px_0_rgba(75,57,40,0.85)]'
-                    : 'border-border bg-bg-secondary/80 text-text-muted hover:border-border-hover hover:text-text-primary'
-                }`}
-              >
-                <span className={`h-2.5 w-2.5 rounded-sm ${status === s
-                  ? s === 'started'
-                    ? 'bg-accent-green'
-                    : 'bg-accent-amber'
-                  : 'bg-text-muted'
-                }`} />
-                {s}
-              </button>
+          <select
+            value={status}
+            onChange={e => setStatus(e.target.value as ProjectStatus)}
+            className="retro-inset w-full px-4 py-3 text-sm font-semibold uppercase text-text-primary focus:border-border-hover focus:outline-none"
+          >
+            {PROJECT_STATUSES.map(projectStatus => (
+              <option key={projectStatus} value={projectStatus}>
+                {getProjectStatusLabel(projectStatus)}
+              </option>
             ))}
-          </div>
+          </select>
         </div>
 
         <div className="space-y-2">

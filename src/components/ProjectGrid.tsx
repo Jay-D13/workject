@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import type { Project, ProjectSortOption, ProjectStatusFilter } from '../types'
+import { getProjectStatusLabel, getProjectStatusStyles, PROJECT_STATUSES } from '../lib/projectStatus'
 import { ProjectCard } from './ProjectCard'
 import { EmptyState } from './EmptyState'
 import { Search, LayoutGrid, List, ArrowUpDown } from 'lucide-react'
@@ -71,7 +72,7 @@ export function ProjectGrid({
   })
 
   const archived = projects.filter(p => p.archived).length
-  const statusFilters: ProjectStatusFilter[] = ['all', 'started', 'pending']
+  const statusFilters: ProjectStatusFilter[] = ['all', ...PROJECT_STATUSES]
 
   return (
     <>
@@ -150,13 +151,11 @@ export function ProjectGrid({
                       statusFilter === filter
                         ? filter === 'all'
                           ? 'border-border bg-[rgba(159,199,217,0.45)] text-text-primary shadow-[2px_2px_0_rgba(75,57,40,0.85)]'
-                          : filter === 'started'
-                            ? 'border-border bg-accent-green/20 text-accent-green shadow-[2px_2px_0_rgba(75,57,40,0.85)]'
-                            : 'border-border bg-accent-amber/20 text-accent-amber shadow-[2px_2px_0_rgba(75,57,40,0.85)]'
+                          : `${getProjectStatusStyles(filter).badge} shadow-[2px_2px_0_rgba(75,57,40,0.85)]`
                         : 'bg-bg-secondary/80 text-text-secondary hover:border-border-hover hover:text-text-primary',
                     )}
                   >
-                    {filter}
+                    {filter === 'all' ? 'all' : getProjectStatusLabel(filter)}
                   </button>
                 ))}
                 {archived > 0 && (

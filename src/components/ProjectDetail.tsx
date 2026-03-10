@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowLeft, ExternalLink, Archive, ArchiveRestore, Trash2 } from 'lucide-react'
 import { cn } from '../lib/cn'
-import type { Project } from '../types'
+import { getProjectStatusLabel, PROJECT_STATUSES } from '../lib/projectStatus'
+import type { Project, ProjectStatus } from '../types'
 import { StatusBadge } from './StatusBadge'
 import { ProgressBar } from './ProgressBar'
 import { DescriptionTab } from './DescriptionTab'
@@ -16,7 +17,7 @@ interface ProjectDetailProps {
   project: Project
   onBack: () => void
   onUpdate: (updates: Partial<Project>) => void
-  onToggleStatus: () => void
+  onStatusChange: (status: ProjectStatus) => void
   onToggleArchive: () => void
   onDelete: () => void
   onAddTodo: (text: string) => void
@@ -28,7 +29,7 @@ export function ProjectDetail({
   project,
   onBack,
   onUpdate,
-  onToggleStatus,
+  onStatusChange,
   onToggleArchive,
   onDelete,
   onAddTodo,
@@ -55,7 +56,7 @@ export function ProjectDetail({
       transition={{ duration: 0.24, ease: 'easeOut' }}
     >
       <div className="retro-panel mx-auto w-full max-w-6xl p-5 sm:p-8 lg:p-10">
-        <div className="mb-7 flex items-start gap-3 sm:gap-4">
+        <div className="mb-7 flex flex-wrap items-start gap-3 sm:flex-nowrap sm:gap-4">
           <button
             type="button"
             onClick={onBack}
@@ -65,7 +66,7 @@ export function ProjectDetail({
           </button>
 
           <div className="min-w-0 flex-1 space-y-2">
-            <h2 className="truncate font-display text-2xl font-semibold text-text-primary sm:text-3xl lg:text-4xl">
+            <h2 className="font-project-title text-2xl leading-tight text-text-primary break-words sm:text-3xl lg:text-4xl">
               {project.title}
             </h2>
             <p className="text-sm text-text-muted sm:text-base">
@@ -73,7 +74,21 @@ export function ProjectDetail({
             </p>
           </div>
 
-          <StatusBadge status={project.status} onClick={onToggleStatus} className="shrink-0" />
+          <div className="flex w-full shrink-0 flex-wrap items-center gap-3 sm:w-auto sm:flex-nowrap">
+            <StatusBadge status={project.status} />
+            <select
+              value={project.status}
+              onChange={e => onStatusChange(e.target.value as ProjectStatus)}
+              aria-label="Project status"
+              className="retro-inset min-w-[11rem] px-3 py-2 text-xs font-semibold uppercase text-text-primary focus:border-border-hover focus:outline-none"
+            >
+              {PROJECT_STATUSES.map(status => (
+                <option key={status} value={status}>
+                  {getProjectStatusLabel(status)}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
 
         <ProgressBar completed={completed} total={total} className="mb-8" />

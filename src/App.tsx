@@ -17,13 +17,17 @@ function App() {
     addProject,
     updateProject,
     deleteProject,
-    toggleStatus,
+    setProjectStatus,
     toggleArchive,
     addTodo,
     toggleTodo,
     removeTodo,
     getProject,
     setProjects,
+    isReady,
+    coldStorageStatus,
+    isColdStorageBusy,
+    connectColdStorage,
   } = useProjects()
 
   const [view, setView] = useState<View>({ type: 'grid' })
@@ -54,8 +58,17 @@ function App() {
     <Layout
       projects={projects}
       onImport={(imported: Project[]) => setProjects(imported)}
+      coldStorageStatus={coldStorageStatus}
+      coldStorageBusy={isColdStorageBusy}
+      onConnectColdStorage={connectColdStorage}
     >
-      {view.type === 'grid' ? (
+      {!isReady ? (
+        <div className="retro-panel mx-auto max-w-3xl px-6 py-16 text-center">
+          <p className="font-display text-sm uppercase tracking-[0.16em] text-text-muted">
+            Loading project bank
+          </p>
+        </div>
+      ) : view.type === 'grid' ? (
         <ProjectGrid
           projects={projects}
           showArchived={showArchived}
@@ -76,7 +89,7 @@ function App() {
           project={currentProject}
           onBack={() => setView({ type: 'grid' })}
           onUpdate={updates => updateProject(currentProject.id, updates)}
-          onToggleStatus={() => toggleStatus(currentProject.id)}
+          onStatusChange={status => setProjectStatus(currentProject.id, status)}
           onToggleArchive={() => toggleArchive(currentProject.id)}
           onDelete={() => handleDelete(currentProject.id)}
           onAddTodo={text => addTodo(currentProject.id, text)}
